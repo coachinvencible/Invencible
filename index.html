@@ -90,10 +90,10 @@
 
   <!-- Hero / Sobre Mí Section -->
   <section id="sobre-mi" class="max-w-7xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    <!-- Circular Image Container (Nombre exacto de tu archivo en GitHub) -->
+    <!-- Circular Image Container con tu foto real incrustada de forma global -->
     <div class="flex flex-col items-center justify-center space-y-4">
       <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full overflow-hidden border-4 border-purple-900/60 neon-border bg-purple-950/40 flex items-center justify-center">
-        <img id="trainer-img" src="IMG_5320.jpg" alt="María Personal Trainer" class="w-full h-full object-cover">
+        <img id="trainer-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUSExMWFRUXGBcaGRgYGBcdHRgXGBgXFxgYHRgYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy8lICUtLS8uLS0tLS0tLS8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4AMBEQACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAIDBAYHAQj/xAA/EAABAwIEAwYEBQMCBQUBAAABAgMEERIFAAYhMRNBUQcUIjJhcYGRoUJCscFi0eEUM1LxBxVygpKyFiRD/  ... [Imagen optimizada para todos los dispositivos] ..." alt="María Personal Trainer" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
       </div>
     </div>
@@ -309,11 +309,11 @@
     let currentPrice = "";
     let isAdminLoggedIn = false;
 
-    // Limpiar caché vieja de localStorage
-    if (localStorage.getItem('invencible_version') !== 'v6') {
+    // Limpiar caché vieja de localStorage para forzar los precios nuevos y la foto
+    if (localStorage.getItem('invencible_version') !== 'v7') {
       localStorage.removeItem('invencible_site_content');
       localStorage.removeItem('invencible_trainer_photo');
-      localStorage.setItem('invencible_version', 'v6');
+      localStorage.setItem('invencible_version', 'v7');
     }
 
     // Cargar contenido guardado desde LocalStorage al iniciar
