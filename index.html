@@ -80,7 +80,7 @@
   <div id="admin-bar" class="hidden bg-purple-900/90 text-purple-100 px-4 py-2 border-b border-purple-500 text-xs font-semibold flex justify-between items-center">
     <div class="flex items-center gap-2">
       <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
-      <span>MODO EDICIÓN ACTIVO — Haz clic en cualquier texto de la página para modificarlo.</span>
+      <span>MODO EDICIÓN ACTIVO — Haz clic en los textos para editar y usa el botón debajo de la foto para cambiarla.</span>
     </div>
     <div class="flex gap-2">
       <button onclick="saveChanges()" class="bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded shadow transition">Guardar Cambios</button>
@@ -91,10 +91,17 @@
   <!-- Hero / Sobre Mí Section -->
   <section id="sobre-mi" class="max-w-7xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
     <!-- Circular Image Container -->
-    <div class="flex justify-center">
+    <div class="flex flex-col items-center justify-center space-y-4">
       <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full overflow-hidden border-4 border-purple-900/60 neon-border">
-        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=800" alt="Trainer Image" class="w-full h-full object-cover">
+        <img id="trainer-img" src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=800" alt="Trainer Image" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      </div>
+      <!-- Botón para cambiar foto (Visible solo para Admin) -->
+      <div id="photo-upload-container" class="hidden">
+        <label class="cursor-pointer bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-2 px-4 rounded-xl shadow transition inline-flex items-center gap-2">
+          <i data-lucide="camera" class="w-4 h-4"></i> Cambiar foto de perfil
+          <input type="file" id="photo-input" accept="image/*" class="hidden" onchange="previewImage(event)">
+        </label>
       </div>
     </div>
 
@@ -177,7 +184,7 @@
           <div data-key="p1_price" class="text-4xl font-extrabold text-purple-400">S/. 60.00</div>
           <p data-key="p1_desc" class="text-gray-300 text-sm leading-relaxed">Describe aquí qué incluye este plan de entrenamiento.</p>
           <div class="bg-black/50 p-4 rounded-xl border border-purple-900/50 text-xs text-purple-200/90 space-y-1">
-            <p>Pago por Yape: <strong>+51 904561389</strong></p>
+            <p>Pago por Yape: <strong>+51 961 474 243</strong></p>
             <p>A nombre de Maria Ord. Después de yapear, envía tu constancia por WhatsApp.</p>
           </div>
         </div>
@@ -193,7 +200,7 @@
           <div data-key="p2_price" class="text-4xl font-extrabold text-purple-400">S/. 120.00</div>
           <p data-key="p2_desc" class="text-gray-300 text-sm leading-relaxed">Incluye rutina personalizada, guía de alimentación y revisión de técnica por videos semanal.</p>
           <div class="bg-black/50 p-4 rounded-xl border border-purple-900/50 text-xs text-purple-200/90 space-y-1">
-            <p>Pago por Yape: <strong>+51 904561389</strong></p>
+            <p>Pago por Yape: <strong>+51 961 474 243</strong></p>
             <p>A nombre de Maria Ord. Después de yapear, envía tu constancia por WhatsApp.</p>
           </div>
         </div>
@@ -209,7 +216,7 @@
           <div data-key="p3_price" class="text-4xl font-extrabold text-purple-400">S/. 200.00</div>
           <p data-key="p3_desc" class="text-gray-300 text-sm leading-relaxed">Acompañamiento diario 24/7, videollamadas quincenales y ajuste de cargas en tiempo real.</p>
           <div class="bg-black/50 p-4 rounded-xl border border-purple-900/50 text-xs text-purple-200/90 space-y-1">
-            <p>Pago por Yape: <strong>+51 904561389</strong></p>
+            <p>Pago por Yape: <strong>+51 961 474 243</strong></p>
             <p>A nombre de Maria Ord. Después de yapear, envía tu constancia por WhatsApp.</p>
           </div>
         </div>
@@ -217,6 +224,14 @@
           Comprar plan con Yape
         </button>
       </div>
+    </div>
+
+    <!-- Botón de Pagos Internacionales / Fuera de Perú -->
+    <div class="mt-12 text-center">
+      <a href="https://wa.me/51961474243?text=Hola,%20no%20soy%20de%20Perú%20y%20quiero%20adquirir%20un%20plan,%20¿cómo%20puedo%20hacer?" target="_blank" class="inline-flex items-center gap-2 bg-purple-950/60 border border-purple-700/60 hover:border-purple-400 text-purple-200 hover:text-white px-6 py-3.5 rounded-2xl font-semibold transition shadow-lg text-sm sm:text-base">
+        <i data-lucide="globe" class="w-5 h-5 text-purple-400"></i>
+        ¿No eres de Perú y quieres tu plan? Escríbeme aquí 🌍
+      </a>
     </div>
   </section>
 
@@ -263,7 +278,7 @@
       <div class="bg-black/60 border border-purple-800/60 rounded-2xl p-4 mb-6 text-center">
         <span class="text-xs text-purple-300 uppercase tracking-widest font-semibold block mb-1">Número para yapear</span>
         <div class="flex items-center justify-center gap-2">
-          <span class="text-2xl font-extrabold text-white tracking-wider">+51 904561389</span>
+          <span class="text-2xl font-extrabold text-white tracking-wider">+51 961 474 243</span>
           <button onclick="copyNumber()" class="p-1.5 text-purple-400 hover:text-purple-300 transition" title="Copiar número">
             <i data-lucide="copy" class="w-5 h-5"></i>
           </button>
@@ -320,7 +335,8 @@
         toggleAuthModal();
         enableEditing();
         document.getElementById('admin-bar').classList.remove('hidden');
-        alert("¡Sesión de Administrador Iniciada! Ahora puedes editar los textos directamente.");
+        document.getElementById('photo-upload-container').classList.remove('hidden');
+        alert("¡Sesión de Administrador Iniciada! Ya puedes editar textos y cambiar la foto de perfil.");
       } else {
         alert("Usuario o contraseña incorrectos.");
       }
@@ -330,6 +346,7 @@
       isAdminLoggedIn = false;
       disableEditing();
       document.getElementById('admin-bar').classList.add('hidden');
+      document.getElementById('photo-upload-container').classList.add('hidden');
     }
 
     function enableEditing() {
@@ -346,16 +363,31 @@
       });
     }
 
+    // Función para cambiar y previsualizar la foto desde el dispositivo
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const base64Image = e.target.result;
+          document.getElementById('trainer-img').src = base64Image;
+          localStorage.setItem('invencible_trainer_photo', base64Image);
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
     function saveChanges() {
       const savedData = {};
       document.querySelectorAll('[data-key]').forEach(el => {
         savedData[el.getAttribute('data-key')] = el.innerHTML;
       });
       localStorage.setItem('invencible_site_content', JSON.stringify(savedData));
-      alert("¡Todos los cambios han sido guardados exitosamente!");
+      alert("¡Todos los cambios y la foto han sido guardados exitosamente!");
     }
 
     function loadSavedContent() {
+      // Cargar textos guardados
       const saved = localStorage.getItem('invencible_site_content');
       if (saved) {
         const data = JSON.parse(saved);
@@ -363,6 +395,11 @@
           const el = document.querySelector(`[data-key="${key}"]`);
           if (el) el.innerHTML = data[key];
         });
+      }
+      // Cargar foto guardada
+      const savedPhoto = localStorage.getItem('invencible_trainer_photo');
+      if (savedPhoto) {
+        document.getElementById('trainer-img').src = savedPhoto;
       }
     }
 
@@ -379,8 +416,8 @@
     }
 
     function copyNumber() {
-      navigator.clipboard.writeText("+51904561389");
-      alert("Número +51 904561389 copiado al portapapeles.");
+      navigator.clipboard.writeText("+51961474243");
+      alert("Número +51 961 474 243 copiado al portapapeles.");
     }
 
     function submitYapeOrder(e) {
@@ -389,7 +426,7 @@
       const email = document.getElementById('cust-email').value;
 
       const message = `Hola, ya realicé el Yape para el *${currentPlan}* (${currentPrice}).%0A%0A*Mis Datos:*%0A- Nombre: ${name}%0A- Correo: ${email}%0A%0AAdjunto el comprobante de pago:`;
-      const whatsappUrl = `https://wa.me/51904561389?text=${message}`;
+      const whatsappUrl = `https://wa.me/51961474243?text=${message}`;
 
       window.open(whatsappUrl, '_blank');
       closeYapeModal();
