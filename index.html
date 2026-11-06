@@ -77,23 +77,31 @@
   </nav>
 
   <!-- Barra de Notificación de Modo Edición Activo -->
-  <div id="admin-bar" class="hidden bg-purple-900/90 text-purple-100 px-4 py-2 border-b border-purple-500 text-xs font-semibold flex justify-between items-center">
+  <div id="admin-bar" class="hidden bg-purple-900/90 text-purple-100 px-4 py-2 border-b border-purple-500 text-xs font-semibold flex flex-wrap justify-between items-center gap-2">
     <div class="flex items-center gap-2">
       <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
-      <span>MODO EDICIÓN ACTIVO — Haz clic en los textos para editarlos directamente.</span>
+      <span>MODO EDICIÓN ACTIVO</span>
     </div>
-    <div class="flex gap-2">
-      <button onclick="saveChanges()" class="bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded shadow transition">Guardar Cambios</button>
+    <div class="flex items-center gap-3">
+      <label class="bg-purple-800 hover:bg-purple-700 text-white px-3 py-1 rounded cursor-pointer text-xs transition">
+        Cambiar Foto Local
+        <input type="file" id="image-uploader" accept="image/*" class="hidden" onchange="uploadImage(event)">
+      </label>
+      <button onclick="saveChanges()" class="bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded shadow transition">Guardar Textos</button>
       <button onclick="logoutAdmin()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-1 rounded transition">Cerrar Sesión</button>
     </div>
   </div>
 
   <!-- Hero / Sobre Mí Section -->
   <section id="sobre-mi" class="max-w-7xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    <!-- Circular Image Container con tu foto real conectada al repositorio -->
+    <!-- Circular Image Container (Carga Inteligente Multi-Ruta) -->
     <div class="flex flex-col items-center justify-center space-y-4">
       <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full overflow-hidden border-4 border-purple-900/60 neon-border bg-purple-950/40 flex items-center justify-center">
-        <img id="trainer-img" src="IMG_5320.jpg?v=999" alt="María Personal Trainer" class="w-full h-full object-cover">
+        <img id="trainer-img" 
+             src="./IMG_5320.jpg?v=101" 
+             onerror="handleImageError(this)" 
+             alt="María Personal Trainer" 
+             class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
       </div>
     </div>
@@ -148,7 +156,7 @@
       <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div class="p-6 rounded-2xl bg-purple-950/20 border border-purple-900/40">
           <h3 data-key="pain1_title" class="text-xl font-bold text-white mb-3">«Estos planes son para vos si...»</h3>
-          <p data-key="pain1_text" class="text-gray-400 text-sm leading-relaxed">Te da verguenza ir al gym sola , no sabes que hacer, copias rutinas de tiktok por no querer preguntar Sentis que vas al gym pero no entrenas, nunca ves resultados y encima terminas dolorida. No tenes ninguna contraindicacion medica, lesiones, embarazadas, cirugias recientes, hernias, tendinitis, menores de edad. La empresa MARUSTARK no se responsabiliza por cualquier daño o perjuicio que pudiera sufrir durante el desarrollo de la actividad habiendo sido informado antes de abonar.</p>
+          <p data-key="pain1_text" class="text-gray-400 text-sm leading-relaxed">Te da verguenza ir al gym sola , no sabes que hacer, copias rutinas de tiktok por no querer preguntar Sentis que vas al gym pero no entrenas, nunca ves resultados y encima terminas dolorida. No tenes ninguna contraindicacion medica, lesiones, embarazadas, cirugias recientes, hernias, tendinitis, menores de edad. La empresa MARUSTARK no se responsabiliza por cualquier daño o perjudicio que pudiera sufrir durante el desarrollo de la actividad habiendo sido informado antes de abonar.</p>
         </div>
         <div class="p-6 rounded-2xl bg-purple-950/20 border border-purple-900/40">
           <h3 data-key="pain2_title" class="text-xl font-bold text-white mb-3">«No sé usar las máquinas»</h3>
@@ -219,7 +227,7 @@
       </div>
     </div>
 
-    <!-- Botón de Pagos Internacionales / Fuera de Perú -->
+    <!-- Botón de Pagos Internacionales -->
     <div class="mt-12 text-center">
       <a href="https://wa.me/51961474243?text=Hola,%20no%20soy%20de%20Perú%20y%20quiero%20adquirir%20un%20plan,%20¿cómo%20puedo%20hacer?" target="_blank" class="inline-flex items-center gap-2 bg-purple-950/60 border border-purple-700/60 hover:border-purple-400 text-purple-200 hover:text-white px-6 py-3.5 rounded-2xl font-semibold transition shadow-lg text-sm sm:text-base">
         <i data-lucide="globe" class="w-5 h-5 text-purple-400"></i>
@@ -267,7 +275,6 @@
         <p id="selected-plan-info" class="text-sm text-purple-300 font-semibold"></p>
       </div>
 
-      <!-- Paso 1: Número de Yape -->
       <div class="bg-black/60 border border-purple-800/60 rounded-2xl p-4 mb-6 text-center">
         <span class="text-xs text-purple-300 uppercase tracking-widest font-semibold block mb-1">Número para yapear</span>
         <div class="flex items-center justify-center gap-2">
@@ -279,7 +286,6 @@
         <span class="text-xs text-gray-400 mt-1 block">Titular: Maria Ord.</span>
       </div>
 
-      <!-- Paso 2: Datos del cliente -->
       <form onsubmit="submitYapeOrder(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-purple-200 mb-1">Tu Nombre Completo *</label>
@@ -298,10 +304,8 @@
   </div>
 
   <script>
-    // Configuración Inicial e Iconos
     lucide.createIcons();
     
-    // Credenciales de Administrador
     const ADMIN_USER = "admin";
     const ADMIN_PASS = "1234";
 
@@ -309,18 +313,20 @@
     let currentPrice = "";
     let isAdminLoggedIn = false;
 
-    // Forzar la limpieza de caché
-    if (localStorage.getItem('invencible_version') !== 'v100') {
-      localStorage.removeItem('invencible_site_content');
-      localStorage.setItem('invencible_version', 'v100');
+    // Rutas de respaldo en orden si falla la local
+    const fallbackSources = [
+      "IMG_5320.jpg",
+      "https://raw.githubusercontent.com/coachinvencible/Invencible/main/IMG_5320.jpg",
+      "https://coachinvencible.github.io/Invencible/IMG_5320.jpg"
+    ];
+    let fallbackIndex = 0;
+
+    function handleImageError(imgElement) {
+      if (fallbackIndex < fallbackSources.length) {
+        imgElement.src = fallbackSources[fallbackIndex++];
+      }
     }
 
-    // Cargar contenido guardado desde LocalStorage al iniciar
-    window.addEventListener('DOMContentLoaded', () => {
-      loadSavedContent();
-    });
-
-    // Control de Modales
     function toggleAuthModal() {
       document.getElementById('auth-modal').classList.toggle('hidden');
     }
@@ -334,7 +340,7 @@
         toggleAuthModal();
         enableEditing();
         document.getElementById('admin-bar').classList.remove('hidden');
-        alert("¡Sesión de Administrador Iniciada! Ya puedes editar textos haciendo clic sobre ellos.");
+        alert("¡Sesión de Administrador Iniciada!");
       } else {
         alert("Usuario o contraseña incorrectos.");
       }
@@ -360,27 +366,27 @@
       });
     }
 
+    function uploadImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('trainer-img').src = e.target.result;
+          alert("Foto cambiada temporalmente en tu vista previa local.");
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
     function saveChanges() {
       const savedData = {};
       document.querySelectorAll('[data-key]').forEach(el => {
         savedData[el.getAttribute('data-key')] = el.innerHTML;
       });
       localStorage.setItem('invencible_site_content', JSON.stringify(savedData));
-      alert("¡Todos los cambios de texto han sido guardados exitosamente!");
+      alert("¡Textos guardados exitosamente!");
     }
 
-    function loadSavedContent() {
-      const saved = localStorage.getItem('invencible_site_content');
-      if (saved) {
-        const data = JSON.parse(saved);
-        Object.keys(data).forEach(key => {
-          const el = document.querySelector(`[data-key="${key}"]`);
-          if (el) el.innerHTML = data[key];
-        });
-      }
-    }
-
-    // Lógica del Checkout con Yape
     function openYapeModal(planName, price) {
       currentPlan = planName;
       currentPrice = price;
@@ -394,7 +400,7 @@
 
     function copyNumber() {
       navigator.clipboard.writeText("+51961474243");
-      alert("Número +51 961 474 243 copiado al portapapeles.");
+      alert("Número +51 961 474 243 copiado.");
     }
 
     function submitYapeOrder(e) {
