@@ -90,10 +90,10 @@
 
   <!-- Hero / Sobre Mí Section -->
   <section id="sobre-mi" class="max-w-7xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    <!-- Circular Image Container con tu foto real incrustada de forma global -->
+    <!-- Circular Image Container con la URL directa de la foto enviada -->
     <div class="flex flex-col items-center justify-center space-y-4">
       <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full overflow-hidden border-4 border-purple-900/60 neon-border bg-purple-950/40 flex items-center justify-center">
-        <img id="trainer-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUSExMWFRUXGBcaGRgYGBcdHRgXGBgXFxgYHRgYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy8lICUtLS8uLS0tLS0tLS8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4AMBEQACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAIDBAYHAQj/xAA/EAABAwIEAwYEBQMCBQUBAAABAgMEERIFAAYhMRNBUQcUIjJhcYGRoUJCscFi0eEUM1LxBxVygpKyFiRD/  ... [Imagen optimizada para todos los dispositivos] ..." alt="María Personal Trainer" class="w-full h-full object-cover">
+        <img id="trainer-img" src="https://raw.githubusercontent.com/coachinvencible/Invencible/main/IMG_5320.jpg" alt="María Personal Trainer" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
       </div>
     </div>
@@ -148,7 +148,7 @@
       <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div class="p-6 rounded-2xl bg-purple-950/20 border border-purple-900/40">
           <h3 data-key="pain1_title" class="text-xl font-bold text-white mb-3">«Estos planes son para vos si...»</h3>
-          <p data-key="pain1_text" class="text-gray-400 text-sm leading-relaxed">Te da verguenza ir al gym sola , no sabes que hacer, copias rutinas de tiktok por no querer preguntar Sentis que vas al gym pero no entrenas, nunca ves resultados y encima terminas dolorida. No tenes ninguna contraindicacion medica, lesiones, embarazadas, cirugias recientes, hernias, tendinitis, menores de edad. La empresa MARUSTARK no se responsabiliza por cualquier daño o perjuicio que pudiera sufrir durante el desarrollo de la actividad habiendo sido informado antes de abonar.</p>
+          <p data-key="pain1_text" class="text-gray-400 text-sm leading-relaxed">Te da verguenza ir al gym sola , no sabes que hacer, copias rutinas de tiktok por no querer preguntar Sentis que vas al gym pero no entrenas, nunca ves resultados y encima terminas dolorida. No tenes ninguna contraindicacion medica, lesiones, embarazadas, cirugias recientes, hernias, tendinitis, menores de edad. La empresa MARUSTARK no se responsabiliza por cualquier daño o perjudicio que pudiera sufrir durante el desarrollo de la actividad habiendo sido informado antes de abonar.</p>
         </div>
         <div class="p-6 rounded-2xl bg-purple-950/20 border border-purple-900/40">
           <h3 data-key="pain2_title" class="text-xl font-bold text-white mb-3">«No sé usar las máquinas»</h3>
@@ -309,17 +309,8 @@
     let currentPrice = "";
     let isAdminLoggedIn = false;
 
-    // Limpiar caché vieja de localStorage para forzar los precios nuevos y la foto
-    if (localStorage.getItem('invencible_version') !== 'v7') {
-      localStorage.removeItem('invencible_site_content');
-      localStorage.removeItem('invencible_trainer_photo');
-      localStorage.setItem('invencible_version', 'v7');
-    }
-
-    // Cargar contenido guardado desde LocalStorage al iniciar
-    window.addEventListener('DOMContentLoaded', () => {
-      loadSavedContent();
-    });
+    // Forzar la limpieza de caché previa y cargar la nueva ruta de imagen
+    localStorage.clear();
 
     // Control de Modales
     function toggleAuthModal() {
@@ -368,17 +359,6 @@
       });
       localStorage.setItem('invencible_site_content', JSON.stringify(savedData));
       alert("¡Todos los cambios de texto han sido guardados exitosamente!");
-    }
-
-    function loadSavedContent() {
-      const saved = localStorage.getItem('invencible_site_content');
-      if (saved) {
-        const data = JSON.parse(saved);
-        Object.keys(data).forEach(key => {
-          const el = document.querySelector(`[data-key="${key}"]`);
-          if (el) el.innerHTML = data[key];
-        });
-      }
     }
 
     // Lógica del Checkout con Yape
