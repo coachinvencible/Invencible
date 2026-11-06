@@ -90,10 +90,10 @@
 
   <!-- Hero / Sobre Mí Section -->
   <section id="sobre-mi" class="max-w-7xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    <!-- Circular Image Container (Foto fija optimizada para todos los dispositivos) -->
+    <!-- Circular Image Container (Ruta fija en GitHub) -->
     <div class="flex flex-col items-center justify-center space-y-4">
       <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full overflow-hidden border-4 border-purple-900/60 neon-border bg-purple-950/40 flex items-center justify-center">
-        <img id="trainer-img" src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=800" alt="Trainer Image" class="w-full h-full object-cover">
+        <img id="trainer-img" src="foto-perfil.jpg" alt="María Personal Trainer" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
       </div>
     </div>
@@ -309,11 +309,11 @@
     let currentPrice = "";
     let isAdminLoggedIn = false;
 
-    // Limpiar caché vieja de localStorage
-    if (localStorage.getItem('invencible_version') !== 'v4') {
+    // Limpiar caché vieja de localStorage para forzar los precios nuevos en todos lados
+    if (localStorage.getItem('invencible_version') !== 'v5') {
       localStorage.removeItem('invencible_site_content');
       localStorage.removeItem('invencible_trainer_photo');
-      localStorage.setItem('invencible_version', 'v4');
+      localStorage.setItem('invencible_version', 'v5');
     }
 
     // Cargar contenido guardado desde LocalStorage al iniciar
