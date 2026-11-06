@@ -188,7 +188,7 @@
             <p>A nombre de Maria Ord. Después de yapear, envía tu constancia por WhatsApp.</p>
           </div>
         </div>
-        <button onclick="openYapeModal('Proyecto bikini 27', 'S/. 112.00')" class="w-full mt-8 bg-purple-600 hover:bg-purple-500 text-white font-bold py-3.5 rounded-xl transition text-center">
+        <button onclick="openYapeModal('Proyecto bikini \'27', 'S/. 112.00')" class="w-full mt-8 bg-purple-600 hover:bg-purple-500 text-white font-bold py-3.5 rounded-xl transition text-center">
           Comprar plan con Yape
         </button>
       </div>
@@ -315,6 +315,12 @@
     let currentPlan = "";
     let currentPrice = "";
     let isAdminLoggedIn = false;
+
+    // Limpiar caché vieja de localStorage para forzar los precios nuevos en todos lados
+    if (localStorage.getItem('invencible_version') !== 'v2') {
+      localStorage.removeItem('invencible_site_content');
+      localStorage.setItem('invencible_version', 'v2');
+    }
 
     // Cargar contenido guardado desde LocalStorage al iniciar
     window.addEventListener('DOMContentLoaded', () => {
